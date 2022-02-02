@@ -32,30 +32,23 @@ $("#currentDay").text(moment().format('MMMM Do YYYY, h:mm:ss a'));
             $(this).addClass("future");
         }
     })
-
-        //click listener for save button to save data to localStorage
-        $(document).ready(function () {
+        
     
-        $(".saveBtn").on("click", function () {
-            var text = $(this)(".description").val();
-            var time = $(this)(".hour");
+    
         
-        
-            // saving items via local storage
-            localStorage.setItem(time, text);
-        })
-    })
-
-        //localStorage getItem to retreive localStorage data
-
-
-    $("#row-10 .description").val(localStorage.getItem("row-10"));
-    $("#row-11 .description").val(localStorage.getItem("row-11"));
-    $("#row-12 .description").val(localStorage.getItem("row-12"));
-    $("#row-13 .description").val(localStorage.getItem("row-13"));
-    $("#row-14 .description").val(localStorage.getItem("row-14"));
-    $("#row-15 .description").val(localStorage.getItem("row-15"));
-    $("#row-16 .description").val(localStorage.getItem("row-16"));
-    $("#row-17 .description").val(localStorage.getItem("row-17"));
-
+            for (let i = 8; i <= 17; i++) {
+                // load saved items
+                var savedText = localStorage.getItem("text-" + i);
+                                                   
+                $("#row-"+i+">textarea").val(savedText);
+                
+                    
+                var targetBtn = $("#row-"+i+">button")
+            
+                targetBtn.on("click", function() {
+                    var text = $("#row-"+i+">textarea").val();
+            
+                    localStorage.setItem("text-"+i,text);
+                }); 
+            }
 })
